@@ -12,7 +12,7 @@ app.use(bodyParser.json());              // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 //Create Database Connection
-var pgp = require('pg-promise')();
+// var pgp = require('pg-promise')();
 
 /**********************
   Database Connection information
@@ -22,17 +22,17 @@ var pgp = require('pg-promise')();
   user: This should be left as postgres, the default user account created when PostgreSQL was installed
   password: This the password for accessing the database.  You'll need to set a password USING THE PSQL TERMINAL THIS IS NOT A PASSWORD FOR POSTGRES USER ACCOUNT IN LINUX!
 **********************/
-let dbConfig = {
-	host: 'localhost',
-	port: 5432,
-	database: 'movie_reviews', //
-	user: 'postgres',
-	password: 'password'
-};
+// let dbConfig = {
+// 	host: 'localhost',
+// 	port: 5432,
+// 	database: 'movie_reviews', //
+// 	user: 'postgres',
+// 	password: 'password'
+// };
 
-const isProduction = process.env.NODE_ENV === 'production';
-dbConfig = isProduction ? process.env.DATABASE_URL : dbConfig;
-let db = pgp(dbConfig);
+// const isProduction = process.env.NODE_ENV === 'production';
+// dbConfig = isProduction ? process.env.DATABASE_URL : dbConfig;
+// let db = pgp(dbConfig);
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
