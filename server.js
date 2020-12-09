@@ -53,13 +53,6 @@ app.get('/', (req, res) => {
 // Submitting a new review
 app.post('/', (req, res) => {
 
-  // create the table if it does not exist
-  let createQuery = `CREATE TABLE IF NOT EXISTS reviews (
-                        id SERIAL PRIMARY KEY,
-                        name TEXT NOT NULL,
-                        review TEXT NOT NULL,
-                        review_date TEXT NOT NULL);`;
-
   // New time stamp
   let currTime = new Date();
 
@@ -77,7 +70,6 @@ app.post('/', (req, res) => {
   // Run the SQL queries and render the reviews page
   db.task('get-everything', task => {
     return task.batch([
-      task.any(createQuery),
       task.any(insertQuery),
       task.any(selectQuery)
       ]);
@@ -85,7 +77,7 @@ app.post('/', (req, res) => {
   .then(info => {
     res.render('pages/reviews', {
       my_title: 'Movie Reviews',
-      data: info[2]
+      data: info[1]
     });
   })
   .catch(err => {
