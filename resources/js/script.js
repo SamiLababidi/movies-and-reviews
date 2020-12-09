@@ -4,7 +4,7 @@ function searchMovies() {
 	// Retrieve the user input
 	let search_text = document.getElementById("search_text").value;
 	if (search_text == '') {window.alert('Please enter a text to search'); return;}
-	let url = `http://www.omdbapi.com/?apikey=d2ae3254&s=${search_text}`;
+	let url = `https://www.omdbapi.com/?apikey=d2ae3254&s=${search_text}`;
 
 
 	$.ajax({url:url, dataType:"json"}).then(function(data) {
