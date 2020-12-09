@@ -1,0 +1,27 @@
+{
+  "name": "movie-reviews",
+  "version": "1.0.0",
+  "description": "Final exam project",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "pg-promise": "^10.8.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node server.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SamiLababidi/movie-reviews.git"
+  },
+  "author": "Sami Lababidi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SamiLababidi/movie-reviews/issues"
+  },
+  "homepage": "https://github.com/SamiLababidi/movie-reviews#readme"
+}
