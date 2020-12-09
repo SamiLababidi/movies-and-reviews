@@ -107,6 +107,13 @@ app.get('/reviews', (req, res) => {
     })
 });
 
+app.get('/insert', (req, res) => {
+  let currTime = new Date();
+  let query = `INSERT INTO reviews (name, review, review_date)
+                     VALUES ('test name', 'test review', ${currTime});`;
+  db.any(query).then(rows => {console.log('success')})
+});
+
 // Creating the port
 const PORT = process.env.PORT || 8080;
 
