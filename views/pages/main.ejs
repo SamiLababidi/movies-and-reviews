@@ -3,7 +3,31 @@
 <!-- Navigation bar -->
 <%- include('../partials/menu') %>
 
+<div class="row bg-dark">
+	<br>
+	<div class="container justify-content-center" >
+      <form>
+        <div class="row">
+          <div class="col-sm">
+            <label class="sr-only" for="search_filter">Search Tag</label>
+            <input type="text" class="form-control" id="search_text" name="search_filter" placeholder="Enter Search Text">
+          </div>
+              
+          <div class="col-sm">
+            <button type="button" class="btn btn-secondary" onclick="searchMovies()">Search</button>
+          </div>
+        </div>
+      </form>
+      <br>
+  </div>
+</div>
 
+<div class="container">
+	<!-- This area will be populated after calling the search function -->
+	<div class="row text-center text-lg-left" id="search_results">
+		
+	</div>
+</div>
 
 
 <!-- Footer -->

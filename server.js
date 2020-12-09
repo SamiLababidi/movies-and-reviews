@@ -12,7 +12,7 @@ app.use(bodyParser.json());              // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 //Create Database Connection
-// var pgp = require('pg-promise')();
+var pgp = require('pg-promise')();
 
 /**********************
   Database Connection information
@@ -22,17 +22,17 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
   user: This should be left as postgres, the default user account created when PostgreSQL was installed
   password: This the password for accessing the database.  You'll need to set a password USING THE PSQL TERMINAL THIS IS NOT A PASSWORD FOR POSTGRES USER ACCOUNT IN LINUX!
 **********************/
-// let dbConfig = {
-// 	host: 'localhost',
-// 	port: 5432,
-// 	database: 'movie_reviews', //
-// 	user: 'postgres',
-// 	password: 'password'
-// };
+let dbConfig = {
+	host: 'localhost',
+	port: 5432,
+	database: 'movie_reviews', //
+	user: 'postgres',
+	password: 'password'
+};
 
-// const isProduction = process.env.NODE_ENV === 'production';
-// dbConfig = isProduction ? process.env.DATABASE_URL : dbConfig;
-// let db = pgp(dbConfig);
+const isProduction = process.env.NODE_ENV === 'production';
+dbConfig = isProduction ? process.env.DATABASE_URL : dbConfig;
+let db = pgp(dbConfig);
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
@@ -42,13 +42,78 @@ app.use(express.static(__dirname + '/'));//This line is necessary for us to use 
 
 // API calls
 
-app.get('/', function(req, res) {
+// Homepate
+app.get('/', (req, res) => {
 	res.render('pages/main',{ 
-		my_title:"Movies Search"
+		my_title: 'Movies Search'
 	});
 });
 
 
+// Submitting a new review
+app.post('/', (req, res) => {
+
+  // create the table if it does not exist
+  let createQuery = `CREATE TABLE IF NOT EXISTS reviews (
+                        id SERIAL PRIMARY KEY,
+                        name TEXT NOT NULL,
+                        review TEXT NOT NULL,
+                        review_date TEXT NOT NULL);`;
+
+  // New time stamp
+  let currTime = new Date();
+
+  // Movie name and the review
+  let name = req.body.movie;
+  let review = req.body.review;
+
+  // Insert query
+  let insertQuery = `INSERT INTO reviews (name, review, review_date)
+                     VALUES (${name}, ${review}, ${currTime});`;
+
+  // Select query to retrieve the data from the table
+  let selectQuery = `SELECT name, review, review_date FROM reviews;`;
+
+  // Run the SQL queries and render the reviews page
+  db.task('get-everything', task => {
+    return task.batch([
+      task.any(createQuery),
+      task.any(insertQuery),
+      task.any(selectQuery)
+      ]);
+  })
+  .then(info => {
+    res.render('pages/reviews', {
+      my_title: 'Movie Reviews',
+      data: info[2]
+    });
+  })
+  .catch(err => {
+    console.log('error', err);
+  })
+})
+
+
+// get reviews page without submitting the review
+app.get('/reviews', (req, res) => {
+
+  // select query to retrieve data from the reviews table and load the reviews page
+  let selectQuery = `SELECT name, review, review_date FROM reviews;`;
+  db.any(selectQuery)
+    .then(rows => {
+      res.render('pages/reviews', {
+        my_title: 'Movie Reviews',
+        data: rows
+      });
+    })
+    .catch(err => {
+      console.log(err);
+      res.render('pages/reviews', {
+        my_title: 'Movie Reviews',
+        data: ''
+      });
+    })
+});
 
 // Creating the port
 const PORT = process.env.PORT || 8080;

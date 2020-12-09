@@ -1,0 +1,32 @@
+<!-- Header file -->
+<%- include('../partials/header') %>
+<!-- Navigation bar -->
+<%- include('../partials/menu') %>
+
+<div class="container">
+	<br>
+	<h3 class="text-center">Movie Reviews</h3>
+	
+	<table class="table table-bordered" id="reviews_table">
+		<tr>
+			<th>Movie</th>
+			<th>Review</th>
+			<th>Review Date</th>
+		</tr>
+		<%
+		if (data) {
+			var rows = '';
+			data.forEach( element => {
+				rows += `<tr>
+							<td>${element.name}</td>
+							<td>${element.review}</td>
+							<td>${element.review_date}</td>
+						</tr>`;
+			}) %>
+		<%- rows %>
+		<% } %>
+	</table>
+</div>
+
+<!-- Footer -->
+<%- include('../partials/footer') %>
