@@ -44,6 +44,7 @@ app.use(express.static(__dirname + '/'));//This line is necessary for us to use 
 
 // Homepate
 app.get('/', (req, res) => {
+  let currTime = new Date();
 	res.render('pages/main',{ 
 		my_title: 'Movies Search'
 	});
@@ -55,34 +56,39 @@ app.post('/', (req, res) => {
 
   // New time stamp
   let currTime = new Date();
-
   // Movie name and the review
   let name = req.body.movie;
   let review = req.body.review;
 
   // Insert query
   let insertQuery = `INSERT INTO reviews (name, review, review_date)
-                     VALUES (${name}, ${review}, ${currTime});`;
+                     VALUES ('${name}', '${review}', '${currTime}');`;
 
   // Select query to retrieve the data from the table
   let selectQuery = `SELECT name, review, review_date FROM reviews;`;
-
+  console.log(insertQuery);
+  console.log(selectQuery);
   // Run the SQL queries and render the reviews page
-  db.task('get-everything', task => {
-    return task.batch([
-      task.any(insertQuery),
-      task.any(selectQuery)
-      ]);
-  })
-  .then(info => {
-    res.render('pages/reviews', {
-      my_title: 'Movie Reviews',
-      data: info[1]
-    });
-  })
-  .catch(err => {
-    console.log('error', err);
-  })
+  // db.task('get-everything', task => {
+  //   return task.batch([
+  //     task.any(insertQuery),
+  //     task.any(selectQuery)
+  //     ]);
+  // })
+  // .then(info => {
+  //   res.render('pages/reviews', {
+  //     my_title: 'Movie Reviews',
+  //     data: info[1]
+  //   });
+  // })
+  // .catch(err => {
+  //   console.log('error', err);
+  // })
+res.render('pages/reviews', {
+        my_title: 'Movie Reviews',
+        data: ''
+      });
+
 })
 
 
@@ -107,12 +113,6 @@ app.get('/reviews', (req, res) => {
     })
 });
 
-app.get('/insert', (req, res) => {
-  let currTime = new Date();
-  let query = `INSERT INTO reviews (name, review, review_date)
-                     VALUES ('test name', 'test review', ${currTime});`;
-  db.any(query).then(rows => {console.log('success')})
-});
 
 // Creating the port
 const PORT = process.env.PORT || 8080;
