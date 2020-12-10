@@ -10,28 +10,4 @@ Database: PostgreSQL
 Front-end: ejs
 External API: http://www.omdbapi.com
 
--------- Directory Structure -------
-
-|-- movies-and-reviews
-    |-- views
-	|-- pages
-	    |-- main.ejs
-            |-- reviews.ejs
-        |-- partials            
-            |-- header.ejs
-	    |-- menu.ejs
-	    |-- footer.ejs
-    |--resources
-        |--css
-            |-- style.css
-        |--js
-            |-- script.js
-    |-- server.js
-    |-- package.json
-    |-- package-loc.json
-    |-- db_script.sql
-    |-- README.md
-    
--------- ******************* -------
-
 
