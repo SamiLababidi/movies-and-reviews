@@ -67,7 +67,7 @@ app.post('/', (req, res) => {
   // Select query to retrieve the data from the table
   let selectQuery = `SELECT name, review, review_date FROM reviews;`;
 
-  Run the SQL queries and render the reviews page
+  // Run the SQL queries and render the reviews page
   db.task('get-everything', task => {
     return task.batch([
       task.any(insertQuery),
