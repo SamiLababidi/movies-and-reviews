@@ -59,10 +59,10 @@ app.post('/', (req, res) => {
   // Movie name and the review
   let name = req.body.movie;
   let review = req.body.review;
-
+  let fixedName = name.replace(`'`, `''`);
   // Insert query
   let insertQuery = `INSERT INTO reviews (name, review, review_date)
-                     VALUES ('${name}', '${review}', '${currTime}');`;
+                     VALUES ('${fixedName}', '${review}', '${currTime}');`;
 
   // Select query to retrieve the data from the table
   let selectQuery = `SELECT name, review, review_date FROM reviews;`;

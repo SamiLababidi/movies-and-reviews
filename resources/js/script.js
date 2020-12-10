@@ -13,7 +13,7 @@ function searchMovies() {
     let modals = '';
     returned_movies.forEach( function(element, index) {
     let name = element.Title;
-    let fixedName = name.replace("'", "");
+    // let fixedName = name.replace("'", "\''");
     let poster = element.Poster;
     let id = element.imdbID;
     cards += `<div class="col-md-4 col-6" id="card">
@@ -21,15 +21,14 @@ function searchMovies() {
 			        <img class="card-img-top" src="${poster}">
 			        <div class="card-body">
 			            <p class="card-text">${name}</p>
-			            <a href="#review_modal" class="btn btn-primary btn-sm float-left" data-toggle="modal" onclick="document.getElementById('movie').value = '${fixedName}'">Add Review</a>
+			            <a href="#review_modal" class="btn btn-primary btn-sm float-left" data-toggle="modal" onclick="document.getElementById('movie').value = \`${name}\`">Add Review</a>
 			        </div>
 			    </div>
 			  </div>`;
 
     });
-
+    
     document.getElementById('search_results').innerHTML = cards;
-
 
  })
 }
