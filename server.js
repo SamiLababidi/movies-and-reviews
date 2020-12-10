@@ -66,28 +66,24 @@ app.post('/', (req, res) => {
 
   // Select query to retrieve the data from the table
   let selectQuery = `SELECT name, review, review_date FROM reviews;`;
-  console.log(insertQuery);
-  console.log(selectQuery);
-  // Run the SQL queries and render the reviews page
-  // db.task('get-everything', task => {
-  //   return task.batch([
-  //     task.any(insertQuery),
-  //     task.any(selectQuery)
-  //     ]);
-  // })
-  // .then(info => {
-  //   res.render('pages/reviews', {
-  //     my_title: 'Movie Reviews',
-  //     data: info[1]
-  //   });
-  // })
-  // .catch(err => {
-  //   console.log('error', err);
-  // })
-res.render('pages/reviews', {
-        my_title: 'Movie Reviews',
-        data: ''
-      });
+
+  Run the SQL queries and render the reviews page
+  db.task('get-everything', task => {
+    return task.batch([
+      task.any(insertQuery),
+      task.any(selectQuery)
+      ]);
+  })
+  .then(info => {
+    res.render('pages/reviews', {
+      my_title: 'Movie Reviews',
+      data: info[1]
+    });
+  })
+  .catch(err => {
+    console.log('error', err);
+  })
+
 
 })
 
