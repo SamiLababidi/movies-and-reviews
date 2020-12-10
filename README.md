@@ -13,25 +13,25 @@ External API: http://www.omdbapi.com
 -------- Directory Structure -------
 
 |-- movies-and-reviews
-	|-- views
-    	|-- pages
-        	|-- main.ejs
-            |-- reviews.ejs              
+    |-- views
+	|-- pages
+	    |-- main.ejs
+            |-- reviews.ejs
         |-- partials            
             |-- header.ejs
-			|-- menu.ejs
-			|-- footer.ejs     
-    |--resources          
-        |--css            
-        	|-- style.css                 
-        |--js            
-            |-- script.js              
-    |-- server.js          
+	    |-- menu.ejs
+	    |-- footer.ejs
+    |--resources
+        |--css
+            |-- style.css
+        |--js
+            |-- script.js
+    |-- server.js
     |-- package.json
-    |-- package-loc.json  
+    |-- package-loc.json
     |-- db_script.sql
-    |-- README.md          
-
+    |-- README.md
+    
 -------- ******************* -------
 
 
