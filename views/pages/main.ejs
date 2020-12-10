@@ -3,22 +3,24 @@
 <!-- Navigation bar -->
 <%- include('../partials/menu') %>
 
-<div class="row bg-dark">
+<div class="bg-dark">
 	<br>
 	<div class="container justify-content-center" >
-      <form>
         <div class="row">
           <div class="col-sm">
             <label class="sr-only" for="search_filter">Search Tag</label>
-            <input type="text" class="form-control" id="search_text" name="search_filter" placeholder="Enter Search Text">
+            <input type="text" class="form-control" id="search_text" name="search_filter" placeholder="Enter Movie Title">
           </div>
               
           <div class="col-sm">
-            <button type="button" class="btn btn-secondary" onclick="searchMovies()">Search</button>
+            <button id="submit_search" type="button" class="btn btn-secondary" onclick="searchMovies()">Search</button>
           </div>
         </div>
-      </form>
-      <br>
+        <br>
+        <div class="row" id="error_message">
+          
+        </div>
+      
   </div>
 </div>
 

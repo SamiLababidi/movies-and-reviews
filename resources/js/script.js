@@ -8,23 +8,29 @@ function searchMovies() {
 
 
 	$.ajax({url:url, dataType:"json"}).then(function(data) {
-    let returned_movies = data.Search;
-    let cards = '';
-    let modals = '';
-    returned_movies.forEach( function(element, index) {
-    let name = element.Title;
-    // let fixedName = name.replace("'", "\''");
-    let poster = element.Poster;
-    let id = element.imdbID;
-    cards += `<div class="col-md-4 col-6" id="card">
-			    <div class="card">
-			        <img class="card-img-top" src="${poster}">
-			        <div class="card-body">
-			            <p class="card-text">${name}</p>
-			            <a href="#review_modal" class="btn btn-primary btn-sm float-left" data-toggle="modal" onclick="document.getElementById('movie').value = \`${name}\`">Add Review</a>
-			        </div>
-			    </div>
-			  </div>`;
+		
+		if (data.Response == "False") {
+			document.getElementById('error_message').innerHTML =  ` <br><div class="alert alert-danger col-8" role="alert">
+																	  No movies were found. Please try a different name!
+																	</div>`; 
+			return;
+		} else {document.getElementById('error_message').innerHTML = "";}
+	    let returned_movies = data.Search;
+	    let cards = '';
+	    let modals = '';
+	    returned_movies.forEach( function(element, index) {
+	    let name = element.Title;
+	    let poster = element.Poster;
+	    let id = element.imdbID;
+	    cards += `<div class="col-md-4 col-6" id="card">
+				    <div class="card">
+				        <img class="card-img-top" src="${poster}">
+				        <div class="card-body">
+				            <p class="card-text">${name}</p>
+				            <a href="#review_modal" class="btn btn-primary btn-sm float-left" data-toggle="modal" onclick="document.getElementById('movie').value = \`${name}\`">Add Review</a>
+				        </div>
+				    </div>
+				  </div>`;
 
     });
     
@@ -33,7 +39,11 @@ function searchMovies() {
  })
 }
 
-
+$("#search_text").keyup(function(event) { 
+            if (event.keyCode === 13) { 
+                $("#submit_search").click(); 
+            } 
+        });
 
 
 
